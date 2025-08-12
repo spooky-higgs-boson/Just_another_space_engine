@@ -1,0 +1,69 @@
+cmake_minimum_required(VERSION 3.10)
+project(SpaceEngineClone)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Find required packages
+find_package(OpenGL REQUIRED)
+find_package(PkgConfig REQUIRED)
+
+# Find GLFW
+pkg_check_modules(GLFW REQUIRED glfw3)
+
+# Find GLEW
+find_package(GLEW REQUIRED)
+
+# Find GLM
+find_package(glm REQUIRED)
+
+# Include directories
+include_directories(include)
+include_directories(${GLFW_INCLUDE_DIRS})
+
+# Source files
+set(SOURCES
+    src/main.cpp
+    src/Engine.cpp
+    src/Renderer.cpp
+    src/Camera.cpp
+    src/Planet.cpp
+    src/ProceduralGenerator.cpp
+    src/Shader.cpp
+    src/FastNoise.cpp
+)
+
+# Header files
+set(HEADERS
+    include/Engine.h
+    include/Renderer.h
+    include/Camera.h
+    include/Planet.h
+    include/ProceduralGenerator.h
+    include/Shader.h
+    include/FastNoise.h
+)
+
+# Create executable
+add_executable(SpaceEngineClone ${SOURCES} ${HEADERS})
+
+# Compiler-specific options
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    target_compile_options(SpaceEngineClone PRIVATE -Wall -Wextra -O3)
+endif()
+
+# Link libraries
+target_link_libraries(SpaceEngineClone 
+    OpenGL::GL 
+    ${GLFW_LIBRARIES}
+    GLEW::GLEW
+)
+
+# Copy shaders to build directory
+file(COPY shaders DESTINATION ${CMAKE_BINARY_DIR})
+
+# Print build information
+message(STATUS "Building SpaceEngine Clone")
+message(STATUS "OpenGL found: ${OPENGL_FOUND}")
+message(STATUS "GLFW libraries: ${GLFW_LIBRARIES}")
+message(STATUS "GLEW found: ${GLEW_FOUND}")

@@ -1,0 +1,24 @@
+SpaceEngineClone/
+├── src/
+│   ├── main.cpp
+│   ├── Engine.cpp
+│   ├── Renderer.cpp
+│   ├── Camera.cpp
+│   ├── Planet.cpp
+│   ├── ProceduralGenerator.cpp
+│   ├── Shader.cpp
+│   └── FastNoise.cpp
+├── include/
+│   ├── Engine.h
+│   ├── Renderer.h
+│   ├── Camera.h
+│   ├── Planet.h
+│   ├── ProceduralGenerator.h
+│   ├── Shader.h
+│   └── FastNoise.h
+├── shaders/
+│   ├── planet_vertex.glsl
+│   ├── planet_fragment.glsl
+│   ├── star_vertex.glsl
+│   └── star_fragment.glsl
+└── CMakeLists.txt
